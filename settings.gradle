@@ -1,0 +1,4 @@
+include ':asmmachook'
+include ':machook'
+include ':app'
+rootProject.name = "AsmMacHook"

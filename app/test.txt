@@ -1,0 +1,54 @@
+{
+            methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "Test1", "(Landroid/content/Context;)V", null, null);
+            {
+                annotationVisitor0 = methodVisitor.visitAnnotation("Landroidx/annotation/RequiresApi;", false);
+                annotationVisitor0.visit("api", new Integer(23));
+                annotationVisitor0.visitEnd();
+            }
+            {
+                annotationVisitor0 = methodVisitor.visitAnnotation("Landroid/annotation/SuppressLint;", false);
+                {
+                    AnnotationVisitor annotationVisitor1 = annotationVisitor0.visitArray("value");
+                    annotationVisitor1.visit(null, "MissingPermission");
+                    annotationVisitor1.visit(null, "NewApi");
+                    annotationVisitor1.visitEnd();
+                }
+                annotationVisitor0.visitEnd();
+            }
+            methodVisitor.visitCode();
+            Label label0 = new Label();
+            methodVisitor.visitLabel(label0);
+            methodVisitor.visitLineNumber(24, label0);
+            methodVisitor.visitVarInsn(ALOAD, 1);
+            methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "android/content/Context", "getApplicationContext", "()Landroid/content/Context;", false);
+            methodVisitor.visitLdcInsn("phone");
+            methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "android/content/Context", "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;", false);
+            methodVisitor.visitTypeInsn(CHECKCAST, "android/telephony/TelephonyManager");
+            methodVisitor.visitVarInsn(ASTORE, 2);
+            Label label1 = new Label();
+            methodVisitor.visitLabel(label1);
+            methodVisitor.visitLineNumber(28, label1);
+            methodVisitor.visitVarInsn(ALOAD, 0);
+            methodVisitor.visitVarInsn(ALOAD, 2);
+            methodVisitor.visitInsn(ICONST_1);
+            methodVisitor.visitMethodInsn(INVOKESTATIC, "com/quvideo/mobile/platform/machook/MacHook", "getTestDeviceId", "(I)Ljava/lang/String;", false);
+            methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "com/quvideo/mobile/platform/machooktest/Test", "b", "(Ljava/lang/String;)V", false);
+            Label label2 = new Label();
+            methodVisitor.visitLabel(label2);
+            methodVisitor.visitLineNumber(34, label2);
+            methodVisitor.visitVarInsn(ALOAD, 0);
+            methodVisitor.visitVarInsn(ALOAD, 2);
+            methodVisitor.visitMethodInsn(INVOKESTATIC, "com/quvideo/mobile/platform/machook/MacHook", "getTestImei", "()Ljava/lang/String;", false);
+            methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "com/quvideo/mobile/platform/machooktest/Test", "a", "(Ljava/lang/String;)V", false);
+            Label label3 = new Label();
+            methodVisitor.visitLabel(label3);
+            methodVisitor.visitLineNumber(36, label3);
+            methodVisitor.visitInsn(RETURN);
+            Label label4 = new Label();
+            methodVisitor.visitLabel(label4);
+            methodVisitor.visitLocalVariable("this", "Lcom/quvideo/mobile/platform/machooktest/Test;", null, label0, label4, 0);
+            methodVisitor.visitLocalVariable("var1", "Landroid/content/Context;", null, label0, label4, 1);
+            methodVisitor.visitLocalVariable("var2", "Landroid/telephony/TelephonyManager;", null, label1, label4, 2);
+            methodVisitor.visitMaxs(4, 3);
+            methodVisitor.visitEnd();
+        }
