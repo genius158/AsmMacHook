@@ -1,12 +1,15 @@
 package com.yan.machooktest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.bluetooth.BluetoothAdapter;
 import android.content.ContentResolver;
 import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.yan.machook.IMacHook;
 import com.yan.machook.MacHook;
@@ -20,12 +23,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        WifiInfo wifiInfo = ((WifiManager) getApplicationContext().getSystemService("wifi")).getConnectionInfo();
+        wifiInfo.getMacAddress();
+
         TelephonyManager var2 = (TelephonyManager) getApplicationContext().getSystemService("phone");
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            String s= var2.getMeid();
-            String s2= var2.getDeviceId();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Test.Test4(this);
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String s = var2.getMeid();
+            String s2 = var2.getDeviceId();
+        }
+      Log.e("getLocalMacAddress","  "+Test2.getLocalMacAddressFromIp()) ;
         MacHook.setiMacHook(new IMacHook() {
             @Override
             public String getTestMac(WifiInfo wifiInfo) {

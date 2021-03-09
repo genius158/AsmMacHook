@@ -46,7 +46,7 @@ public final class HookMethodAdapter extends LocalVariablesSorter implements Opc
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
-         if ("android/net/wifi/WifiInfo".equals(owner) && ("getMacAddress").equals(name) && "()Ljava/lang/String;".equals(desc)) {
+        if ("android/net/wifi/WifiInfo".equals(owner) && ("getMacAddress").equals(name) && "()Ljava/lang/String;".equals(desc)) {
             mv.visitMethodInsn(INVOKESTATIC, HookExtension.HOOK_CLASS_PATH, "getTestMac", "(L" + owner + ";)Ljava/lang/String;", false);
             return;
         }
@@ -129,6 +129,14 @@ public final class HookMethodAdapter extends LocalVariablesSorter implements Opc
             return;
         }
 
+
+        // hook 反射方法
+        // methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/reflect/Method", "invoke", "(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;", false);
+        if (opcode == INVOKEVIRTUAL &&
+                "java/lang/reflect/Method".equals(owner) && "invoke".equals(name) && "(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;".equals(desc)) {
+            mv.visitMethodInsn(INVOKESTATIC, HookExtension.HOOK_CLASS_PATH, "macInvoke", "(L" + owner + ";Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;", false);
+            return;
+        }
 
         super.visitMethodInsn(opcode, owner, name, desc, itf);
     }

@@ -7,6 +7,8 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 
@@ -146,9 +148,61 @@ public class MacHook {
      */
     public static String getTestInetHostAddress(InetAddress address) {
         Log.e("MacHook", "getTestInetHostAddress getTestInetHostAddress getTestInetHostAddress");
-//        if (iMacHook != null) {
-//            return iMacHook.getTestInetHostAddress(address);
-//        }
         return address.getHostAddress();
+    }
+
+    public static Object macInvoke(Method method, Object object, Object... params) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        if (object instanceof WifiInfo) {
+            if ("getMacAddress".equals(method.getName())) {
+                if (params.length == 0) return getTestMac((WifiInfo) object);
+            }
+        }
+
+        if (object instanceof TelephonyManager) {
+            if ("getMeid".equals(method.getName()) && params.length == 0) {
+                return getTestMeid((TelephonyManager) object);
+            }
+            if ("getMeid".equals(method.getName()) && params.length == 1 && params[0] instanceof Integer) {
+                return getTestMeid((TelephonyManager) object, (int) params[0]);
+            }
+            if ("getDeviceId".equals(method.getName()) && params.length == 0) {
+                return getTestDeviceId((TelephonyManager) object);
+            }
+            if ("getDeviceId".equals(method.getName()) && params.length == 1 && params[0] instanceof Integer) {
+                return getTestDeviceId((TelephonyManager) object, (int) params[0]);
+            }
+            if ("getSubscriberId".equals(method.getName()) && params.length == 0) {
+                return getTestSubscriberId((TelephonyManager) object);
+            }
+            if ("getSubscriberId".equals(method.getName()) && params.length == 1 && params[0] instanceof Integer) {
+                return getTestSubscriberId((TelephonyManager) object, (int) params[0]);
+            }
+            if ("getImei".equals(method.getName()) && params.length == 0) {
+                return getTestImei((TelephonyManager) object);
+            }
+            if ("getImei".equals(method.getName()) && params.length == 1 && params[0] instanceof Integer) {
+                return getTestImei((TelephonyManager) object, (int) params[0]);
+            }
+            if ("getSimSerialNumber".equals(method.getName()) && params.length == 0) {
+                return getTestSimSerialNumber((TelephonyManager) object);
+            }
+            if ("getSimSerialNumber".equals(method.getName()) && params.length == 1 && params[0] instanceof Integer) {
+                return getTestSimSerialNumber((TelephonyManager) object, (int) params[0]);
+            }
+        }
+
+        if (object instanceof NetworkInterface) {
+            if ("getHardwareAddress".equals(method.getName()) && params.length == 0) {
+                return getTestHardwareAddress((NetworkInterface) object);
+            }
+        }
+
+        if (object instanceof BluetoothAdapter) {
+            if ("getAddress".equals(method.getName()) && params.length == 0) {
+                return getBluetoothTestAddress((BluetoothAdapter) object);
+            }
+        }
+
+        return method.invoke(object, params);
     }
 }
