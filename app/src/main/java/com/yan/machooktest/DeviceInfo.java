@@ -11,6 +11,8 @@ import android.text.TextUtils;
 
 import androidx.core.app.ActivityCompat;
 
+import com.yan.machook.MacHook;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -222,8 +224,20 @@ public class DeviceInfo {
     }
 
 
-    public static String getAndroidId(Context context) {
-        String androidId = "" + Secure.getString(context.getContentResolver(), "android_id");
-        return androidId;
+    public static String getAndroidId2(Context context, String tag) {
+        System.currentTimeMillis();
+        System.console();
+        System.getProperties();
+        return Secure.getString(context.getContentResolver(), tag);
+    }
+
+    public static String getAndroidId3(Context context, String tag) {
+        System.currentTimeMillis();
+        System.console();
+        System.getProperties();
+        if ("android_id".equals(tag)) {
+            return MacHook.getSecureAndroidId(context.getContentResolver());
+        }
+        return Secure.getString(context.getContentResolver(), tag);
     }
 }

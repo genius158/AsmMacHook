@@ -48,11 +48,5 @@
       <version>6.2.1</version>
       <scope>runtime</scope>
     </dependency>
-    <dependency>
-      <groupId>com.quinn.hunter</groupId>
-      <artifactId>hunter-transform</artifactId>
-      <version>0.9.0</version>
-      <scope>runtime</scope>
-    </dependency>
   </dependencies>
 </project>

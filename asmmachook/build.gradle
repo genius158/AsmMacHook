@@ -13,7 +13,6 @@ dependencies {
   implementation 'org.ow2.asm:asm-util:6.2.1'
   //noinspection GradleDependency
   implementation 'org.ow2.asm:asm-commons:6.2.1'
-  implementation 'com.quinn.hunter:hunter-transform:0.9.0'
 }
 
 repositories {

@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         TelephonyManager var2 = (TelephonyManager) getApplicationContext().getSystemService("phone");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Test.Test4(this);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

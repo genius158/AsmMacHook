@@ -4,7 +4,8 @@ import com.android.build.api.transform.Context;
 import com.android.build.api.transform.TransformException;
 import com.android.build.api.transform.TransformInput;
 import com.android.build.api.transform.TransformOutputProvider;
-import com.quinn.hunter.transform.HunterTransform;
+import com.quinn.hunter.amtransform.HunterTransform;
+
 import java.io.IOException;
 import java.util.Collection;
 import org.gradle.api.Project;

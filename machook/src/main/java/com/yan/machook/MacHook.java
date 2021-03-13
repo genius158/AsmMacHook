@@ -122,6 +122,14 @@ public class MacHook {
         return "";
     }
 
+    public static String getSecureAndroidId(ContentResolver contentResolver) {
+        Log.e("MacHook", "getTestAndroidId getTestAndroidId getTestAndroidId");
+        if (iMacHook != null) {
+            return iMacHook.getSecureString(contentResolver, "android_id");
+        }
+        return "";
+    }
+
     public static byte[] getTestHardwareAddress(NetworkInterface networkInterface) {
         Log.e("MacHook", "getTestHardwareAddress getTestHardwareAddress getTestHardwareAddress");
         if (iMacHook != null) {
@@ -204,5 +212,16 @@ public class MacHook {
         }
 
         return method.invoke(object, params);
+    }
+
+    public static boolean methodInvokeHookCheck(Class<?> declaringClass) {
+        if (
+                WifiInfo.class == declaringClass
+                || TelephonyManager.class == declaringClass
+                || NetworkInterface.class == declaringClass
+                || BluetoothAdapter.class == declaringClass
+
+        )return true;
+        return false;
     }
 }

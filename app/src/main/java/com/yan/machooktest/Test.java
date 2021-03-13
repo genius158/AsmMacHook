@@ -7,6 +7,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -36,18 +37,18 @@ public class Test {
         this.a(var2.getImei());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @SuppressLint({"MissingPermission", "NewApi"})
-    public static void Test4(Context var1) {
-        TelephonyManager var2 = (TelephonyManager) var1.getApplicationContext().getSystemService("phone");
-        try {
-            Class ctm = Class.forName("android.telephony.TelephonyManager");
-            Method method = ctm.getDeclaredMethod("getDeviceId",int.class);
-            method.invoke(var2,2);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    @SuppressLint({"MissingPermission", "NewApi"})
+//    public static void Test4(Context var1) {
+//        TelephonyManager var2 = (TelephonyManager) var1.getApplicationContext().getSystemService("phone");
+//        try {
+//            Class ctm = Class.forName("android.telephony.TelephonyManager");
+//            Method method = ctm.getDeclaredMethod("getDeviceId",int.class);
+//            method.invoke(var2,2);
+//        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint({"MissingPermission", "NewApi"})
@@ -57,6 +58,23 @@ public class Test {
             Class ctm = Class.forName("android.telephony.TelephonyManager");
             Method method = ctm.getDeclaredMethod("getDeviceId");
             method.invoke(var2);
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint({"MissingPermission", "NewApi"})
+    public void Test6(Context var1) {
+        TelephonyManager var2 = (TelephonyManager) var1.getApplicationContext().getSystemService("phone");
+        try {
+            Class ctm = Class.forName("android.telephony.TelephonyManager");
+            Method method = ctm.getDeclaredMethod("getDeviceId");
+            if (MacHook.methodInvokeHookCheck(method.getDeclaringClass())){
+                MacHook.macInvoke(method,var2);
+            }else {
+                method.invoke(var2);
+            }
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
